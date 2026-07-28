@@ -1,6 +1,41 @@
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
 .venv/
-.idea/
+venv/
+env/
+
+# Packaging
+*.egg-info/
+build/
+dist/
+pip-wheel-metadata/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# IDEs
 .vscode/
+.idea/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Python type checker / linter caches
+.mypy_cache/
+.ruff_cache/
+.pyright/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log

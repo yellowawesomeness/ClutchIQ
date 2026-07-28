@@ -30,13 +30,36 @@ python main.py
 
 ## Roadmap
 
-- Add interactive 2D tactical replay
-- Preserve normalized event data for:
-  - player position
-  - yaw
-  - alive state
+The immediate priority is analysis fixture cleanup. Replay UI implementation is not yet in scope.
+
+### Timeline & Replay Compatibility
+
+The timeline will be the single source of truth for replay, analytics, and future annotations.
+
+- Preserve every event at its exact source tick without rounding or reconstructing timing.
+- Provide a stable, extensible public timeline API that can evolve through backward-compatible additions.
+- Use non-lossy timeline models that retain source data required by future consumers.
+- Keep raw demo events separate from derived analytics.
+- Derive replay state and analytics from the timeline rather than maintaining parallel representations.
+- Extend timeline support incrementally to include:
+  - player positions
+  - facing direction
+  - alive/dead state
+  - team and side
   - bomb events
   - utility events
-  - exact tick timing
-- Keep event normalization lossless enough for replay rendering and analysis
-- Do not implement replay yet; keep current analysis fixture cleanup as the immediate task
+  - damage events
+  - optional economy snapshots
+  - future AI annotations that reference timeline ticks without modifying source events
+
+#### Future Features Enabled
+
+- Interactive 2D tactical replay
+- Heatmaps
+- Rotation visualization
+- Trade detection
+- KAST
+- Clutch analysis
+- Utility analysis
+- AI coaching
+- Historical player improvement tracking
