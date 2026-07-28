@@ -6,9 +6,11 @@ from pathlib import Path
 import pytest
 from PySide6.QtWidgets import QApplication, QPushButton
 
+from clutchiq.demo_analysis.analyzer import AnalysisEngine
 from clutchiq.demo_ingest.service import DemoIngestService
 from clutchiq.history.models import AnalysisSummary, DemoImportResult, ImportResult, ImportStage
 from clutchiq.history.service import DemoHistoryService
+from clutchiq.widgets.pages.import_demo import DemoImportOutcome, ImportDemoController
 from clutchiq.widgets.pages.matches import MatchesPage
 
 
@@ -68,10 +70,6 @@ def test_matches_page_loads_successful_imports(qapp: QApplication, tmp_path: Pat
 
 
 def test_import_success_callback_refreshes_dashboard(qapp: QApplication, tmp_path: Path) -> None:
-    from clutchiq.demo_analysis.analyzer import AnalysisEngine
-    from clutchiq.demo_ingest.service import DemoIngestService
-    from clutchiq.widgets.pages.import_demo import ImportDemoController, DemoImportOutcome
-
     class FakeView:
         def __init__(self) -> None:
             self.finished = 0
@@ -89,7 +87,7 @@ def test_import_success_callback_refreshes_dashboard(qapp: QApplication, tmp_pat
     view = FakeView()
     history = FakeHistory()
     calls: list[str] = []
-    controller = ImportDemoController(view, DemoIngestService(parser=DummyParser()), history, AnalysisEngine(), on_import_success=lambda: calls.append("refresh"))
+    controller = ImportDemoController(view, DemoIngestService(parser=DummyParser()), history, AnalysisEngine(), on_import_success=lambda *_: calls.append("refresh"))
     outcome = DemoImportOutcome(
         result=DemoImportResult(
             id="1",
@@ -99,7 +97,8 @@ def test_import_success_callback_refreshes_dashboard(qapp: QApplication, tmp_pat
             result=ImportResult.SUCCESS,
             parse_stage=ImportStage.ANALYZE,
             analysis_summary=AnalysisSummary(1, 1, 0, "CT", 1),
-        )
+        ),
+        rounds=(),
     )
 
     controller._on_finished(outcome)

@@ -3,16 +3,17 @@
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
-from collections.abc import Callable
 
 from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal
 from PySide6.QtWidgets import QFileDialog, QHBoxLayout, QLabel, QVBoxLayout, QWidget
 
 from clutchiq.demo_analysis.analyzer import AnalysisEngine
+from clutchiq.demo_ingest.models import DemoRound
 from clutchiq.demo_ingest.service import DemoIngestService
 from clutchiq.history.models import AnalysisSummary, DemoImportResult, ImportResult, ImportStage
 from clutchiq.history.service import DemoHistoryError, DemoHistoryService
@@ -24,6 +25,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass(frozen=True, slots=True)
 class DemoImportOutcome:
     result: DemoImportResult
+    rounds: tuple[DemoRound, ...]
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,7 +87,7 @@ class DemoImportWorker(QRunnable):
             )
             self.signals.failed.emit(failure)
         else:
-            self.signals.finished.emit(DemoImportOutcome(result=result))
+            self.signals.finished.emit(DemoImportOutcome(result=result, rounds=tuple(demo.rounds)))
 
 
 class ImportDemoController(QObject):
@@ -95,7 +97,7 @@ class ImportDemoController(QObject):
         ingest_service: DemoIngestService,
         history_service: DemoHistoryService,
         analysis_engine: AnalysisEngine,
-        on_import_success: Callable[[], None] | None = None,
+        on_import_success: Callable[[DemoImportResult, tuple[DemoRound, ...]], None] | None = None,
     ) -> None:
         parent = view if isinstance(view, QObject) else None
         super().__init__(parent)
@@ -131,7 +133,7 @@ class ImportDemoController(QObject):
             LOGGER.exception("Failed to persist demo import history for %s", outcome.result.source_name)
         self._view.on_import_finished(outcome.result.source_path, outcome.result)
         if self._on_import_success is not None:
-            self._on_import_success()
+            self._on_import_success(outcome.result, outcome.rounds)
 
     def _on_failed(self, failure_payload: object) -> None:
         if not isinstance(failure_payload, DemoImportFailure):
@@ -159,7 +161,7 @@ class ImportDemoPage(QWidget):
         ingest_service: DemoIngestService,
         history_service: DemoHistoryService,
         analysis_engine: AnalysisEngine,
-        on_import_success: Callable[[], None] | None = None,
+        on_import_success: Callable[[DemoImportResult, tuple[DemoRound, ...]], None] | None = None,
         parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
@@ -179,45 +181,39 @@ class ImportDemoPage(QWidget):
         layout.addWidget(AppTitle("Import Demo"))
         layout.addWidget(AppSubtitle("Runs demo ingestion in a background worker so the UI stays responsive."))
 
-        self.banner = StatusBanner("Select a demo file to begin.")
-        layout.addWidget(self.banner)
-
-        card = AppCard(alt=True)
-        card_layout = QVBoxLayout(card)
-        card_layout.setContentsMargins(20, 20, 20, 20)
-        card_layout.setSpacing(12)
-
-        row = QHBoxLayout()
-        self.choose_button = AppButton("Choose Demo File", role="primary")
-        self.choose_button.clicked.connect(self._controller.choose_and_import)
-        row.addWidget(self.choose_button)
-        row.addStretch(1)
-
-        self.progress = ProgressBar()
-        self.progress.setRange(0, 0)
-        self.progress.setVisible(False)
-        self.status = QLabel("Idle")
-
-        card_layout.addLayout(row)
-        card_layout.addWidget(self.progress)
-        card_layout.addWidget(self.status)
-        layout.addWidget(card)
+        self._card = AppCard()
+        self._card_layout = QVBoxLayout(self._card)
+        self._status_banner = StatusBanner("")
+        self._status_banner.setVisible(False)
+        self._card_layout.addWidget(self._status_banner)
+        self._card_layout.addWidget(QLabel("Choose a .dem file to import into the library."))
+        button_row = QHBoxLayout()
+        self._import_button = AppButton("Choose Demo File")
+        self._import_button.clicked.connect(self._controller.choose_and_import)
+        button_row.addWidget(self._import_button)
+        button_row.addStretch(1)
+        self._card_layout.addLayout(button_row)
+        self._progress = ProgressBar()
+        self._progress.setVisible(False)
+        self._card_layout.addWidget(self._progress)
+        layout.addWidget(self._card)
         layout.addStretch(1)
 
     def on_import_started(self, path: Path) -> None:
-        self.choose_button.setEnabled(False)
-        self.progress.setVisible(True)
-        self.status.setText(f"Processing {path.name}...")
-        self.banner.set_text(f"Import started for {path.name}")
+        self._import_button.setEnabled(False)
+        self._progress.setVisible(True)
+        self._progress.setValue(0)
+        self._status_banner.show_message(f"Importing {path.name}...")
+        self._status_banner.setVisible(True)
 
     def on_import_finished(self, path: Path, result: DemoImportResult) -> None:
-        self.choose_button.setEnabled(True)
-        self.progress.setVisible(False)
-        self.status.setText(f"Imported {path.name}")
-        self.banner.set_text(f"Import completed: {path.name}")
+        self._import_button.setEnabled(True)
+        self._progress.setVisible(False)
+        self._status_banner.show_message(f"Imported {path.name} successfully.")
+        self._status_banner.setVisible(True)
 
-    def on_import_failed(self, path: Path, error: str) -> None:
-        self.choose_button.setEnabled(True)
-        self.progress.setVisible(False)
-        self.status.setText(f"Import failed: {path.name}")
-        self.banner.set_text(f"Import failed: {error}")
+    def on_import_failed(self, path: Path, error_message: str) -> None:
+        self._import_button.setEnabled(True)
+        self._progress.setVisible(False)
+        self._status_banner.show_message(f"Failed to import {path.name}: {error_message}")
+        self._status_banner.setVisible(True)

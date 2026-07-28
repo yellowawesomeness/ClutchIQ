@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget, QStatusBar, QWidget
 
 from clutchiq.demo_analysis.analyzer import AnalysisEngine
 from clutchiq.demo_ingest import Cs2DemoParser
+from clutchiq.demo_ingest.models import DemoRound
 from clutchiq.demo_ingest.service import DemoIngestService
 from clutchiq.history.models import PersistedImportRecord
 from clutchiq.history.service import DemoHistoryService
@@ -17,6 +20,17 @@ from clutchiq.widgets.pages.match_details import MatchDetailsPage
 from clutchiq.widgets.pages.matches import MatchesPage
 from clutchiq.widgets.pages.replay import ReplayPage
 from clutchiq.widgets.pages.settings import SettingsPage
+
+
+@dataclass
+class LoadedMatchStore:
+    _rounds_by_record_id: dict[str, tuple[DemoRound, ...]] = field(default_factory=dict)
+
+    def set_rounds(self, record_id: str, rounds: tuple[DemoRound, ...]) -> None:
+        self._rounds_by_record_id[record_id] = rounds
+
+    def get_rounds(self, record_id: str) -> tuple[DemoRound, ...]:
+        return self._rounds_by_record_id.get(record_id, ())
 
 
 class MainWindow(QMainWindow):
@@ -34,6 +48,7 @@ class MainWindow(QMainWindow):
 
         history_service = history_service or DemoHistoryService()
         analysis_engine = analysis_engine or AnalysisEngine()
+        self._loaded_match_store = LoadedMatchStore()
 
         central = QWidget(self)
         root = QHBoxLayout(central)
@@ -43,7 +58,7 @@ class MainWindow(QMainWindow):
         self.stack = QStackedWidget(central)
         self.pages = {
             Page.DASHBOARD: DashboardPage(history_service=history_service, navigate_to_import_demo=lambda: self.set_page(Page.IMPORT_DEMO), navigate_to_matches=lambda: self.set_page(Page.MATCHES)),
-            Page.IMPORT_DEMO: ImportDemoPage(ingest_service, history_service, analysis_engine, on_import_success=lambda: self.pages[Page.DASHBOARD].refresh()),
+            Page.IMPORT_DEMO: ImportDemoPage(ingest_service, history_service, analysis_engine, on_import_success=self._cache_loaded_match),
             Page.MATCHES: MatchesPage(history_service=history_service, navigate_to_match_details=self._open_match_details),
             Page.MATCH_DETAILS: MatchDetailsPage(),
             Page.REPLAY: ReplayPage(),
@@ -80,9 +95,13 @@ class MainWindow(QMainWindow):
 
         self.set_page(Page.DASHBOARD)
 
+    def _cache_loaded_match(self, record, rounds: tuple[DemoRound, ...]) -> None:
+        self._loaded_match_store.set_rounds(record.id, rounds)
+        self.pages[Page.DASHBOARD].refresh()
+
     def _open_match_details(self, record: PersistedImportRecord) -> None:
         details_page = self.pages[Page.MATCH_DETAILS]
-        details_page.set_record(record, back_callback=lambda: self.set_page(Page.MATCHES))
+        details_page.set_record(record, back_callback=lambda: self.set_page(Page.MATCHES), rounds=self._loaded_match_store.get_rounds(record.id))
         self.set_page(Page.MATCH_DETAILS)
 
     def set_page(self, page: Page) -> None:

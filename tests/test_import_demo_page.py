@@ -20,7 +20,7 @@ def qapp() -> QApplication:
 
 
 class DummyDemo:
-    pass
+    rounds: tuple[object, ...] = ()
 
 
 class DummyIngestService:
@@ -91,6 +91,7 @@ def test_worker_emits_typed_success_outcome(qapp: QApplication) -> None:
     assert payloads[0].result.result == ImportResult.SUCCESS
     assert payloads[0].result.parse_stage == ImportStage.ANALYZE
     assert payloads[0].result.imported_at_utc.tzinfo is not None
+    assert payloads[0].rounds == ()
 
 
 def test_controller_records_success_and_calls_view_once(qapp: QApplication) -> None:
@@ -113,7 +114,8 @@ def test_controller_records_success_and_calls_view_once(qapp: QApplication) -> N
                 winning_side="CT",
                 rounds_with_known_winner=2,
             ),
-        )
+        ),
+        rounds=(),
     )
 
     controller._on_finished(outcome)
@@ -161,7 +163,8 @@ def test_controller_ignores_history_write_failure(qapp: QApplication) -> None:
                 winning_side="CT",
                 rounds_with_known_winner=2,
             ),
-        )
+        ),
+        rounds=(),
     )
 
     controller._on_finished(outcome)
