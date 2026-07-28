@@ -1,100 +1,177 @@
-"""Centralized visual theme for the ClutchIQ interface."""
+"""Global theme manager and QSS for the ClutchIQ desktop shell."""
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 
-BACKGROUND = "#090909"
-SURFACE = "#121212"
-SURFACE_HOVER = "#1c1c1c"
-YELLOW = "#f5c400"
-YELLOW_HOVER = "#ffd52e"
-TEXT_PRIMARY = "#f5f5f5"
-TEXT_MUTED = "#9b9b9b"
-BORDER = "#282828"
+BACKGROUND = "#0D0D0D"
+SURFACE = "#161616"
+SURFACE_ALT = "#202020"
+BORDER = "#303030"
+PRIMARY_TEXT = "#F5F5F5"
+SECONDARY_TEXT = "#A0A0A0"
+PRIMARY_ACCENT = "#FFD400"
+ACCENT_HOVER = "#FFE45C"
 
 
-def build_stylesheet() -> str:
-    """Build the global black-and-yellow Qt stylesheet."""
+@dataclass(frozen=True, slots=True)
+class Theme:
+    background: str = BACKGROUND
+    surface: str = SURFACE
+    surface_alt: str = SURFACE_ALT
+    border: str = BORDER
+    primary_text: str = PRIMARY_TEXT
+    secondary_text: str = SECONDARY_TEXT
+    primary_accent: str = PRIMARY_ACCENT
+    accent_hover: str = ACCENT_HOVER
+
+
+class ThemeManager:
+    """Centralized theme access and stylesheet generation."""
+
+    def __init__(self, theme: Theme | None = None) -> None:
+        self._theme = theme or Theme()
+
+    @property
+    def theme(self) -> Theme:
+        return self._theme
+
+    def stylesheet(self) -> str:
+        return build_stylesheet(self._theme)
+
+
+def build_stylesheet(theme: Theme | None = None) -> str:
+    theme = theme or Theme()
     return f"""
-        QWidget {{
-            background-color: {BACKGROUND};
-            color: {TEXT_PRIMARY};
-            font-family: "Segoe UI", "Arial", sans-serif;
+        * {{
+            font-family: "Segoe UI";
             font-size: 14px;
+            color: {theme.primary_text};
+        }}
+
+        QWidget {{
+            background: {theme.background};
         }}
 
         QMainWindow {{
-            background-color: {BACKGROUND};
+            background: {theme.background};
         }}
 
-        QFrame#sidebar {{
-            background-color: {SURFACE};
-            border-right: 1px solid {BORDER};
+        QFrame#ShellSidebar {{
+            background: {theme.surface};
+            border-right: 1px solid {theme.border};
         }}
 
-        QLabel#brandMark {{
-            color: {YELLOW};
-            font-size: 25px;
+        QFrame#ShellContent {{
+            background: {theme.background};
+        }}
+
+        QFrame#Card, QFrame#SurfaceAltCard {{
+            border: 1px solid {theme.border};
+            border-radius: 16px;
+        }}
+
+        QFrame#Card {{
+            background: {theme.surface};
+        }}
+
+        QFrame#SurfaceAltCard {{
+            background: {theme.surface_alt};
+        }}
+
+        QLabel#AppBrand {{
+            color: {theme.primary_accent};
+            font-size: 24px;
             font-weight: 800;
             letter-spacing: 1px;
         }}
 
-        QLabel#brandTagline {{
-            color: {TEXT_MUTED};
+        QLabel#AppSubtitle {{
+            color: {theme.secondary_text};
             font-size: 11px;
-            font-weight: 600;
         }}
 
-        QPushButton#navigationButton {{
-            background-color: transparent;
-            border: none;
-            border-left: 3px solid transparent;
-            border-radius: 0;
-            color: {TEXT_MUTED};
-            font-size: 14px;
-            font-weight: 600;
-            padding: 13px 18px;
-            text-align: left;
-        }}
-
-        QPushButton#navigationButton:hover {{
-            background-color: {SURFACE_HOVER};
-            color: {TEXT_PRIMARY};
-        }}
-
-        QPushButton#navigationButton[active="true"] {{
-            background-color: {SURFACE_HOVER};
-            border-left-color: {YELLOW};
-            color: {YELLOW};
-        }}
-
-        QLabel#welcomeEyebrow {{
-            color: {YELLOW};
-            font-size: 12px;
+        QLabel#SectionEyebrow {{
+            color: {theme.primary_accent};
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 2px;
         }}
 
-        QLabel#welcomeTitle {{
-            color: {TEXT_PRIMARY};
-            font-size: 38px;
+        QLabel#PageTitle {{
+            color: {theme.primary_text};
+            font-size: 26px;
             font-weight: 700;
         }}
 
-        QLabel#welcomeSubtitle {{
-            color: {TEXT_MUTED};
-            font-size: 15px;
+        QLabel#PageSubtitle {{
+            color: {theme.secondary_text};
+            font-size: 13px;
         }}
 
-        QFrame#accentLine {{
-            background-color: {YELLOW};
-            border: none;
+        QPushButton[role="nav"] {{
+            background: transparent;
+            border: 0;
+            border-left: 3px solid transparent;
+            color: {theme.secondary_text};
+            padding: 12px 16px;
+            text-align: left;
+        }}
+
+        QPushButton[role="nav"]:hover {{
+            background: {theme.surface_alt};
+            color: {theme.primary_text};
+        }}
+
+        QPushButton[role="nav"][active="true"] {{
+            background: {theme.surface_alt};
+            border-left-color: {theme.primary_accent};
+            color: {theme.primary_accent};
+        }}
+
+        QPushButton[role="primary"] {{
+            background: {theme.primary_accent};
+            color: #111111;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 700;
+        }}
+
+        QPushButton[role="primary"]:hover {{
+            background: {theme.accent_hover};
+        }}
+
+        QPushButton[role="secondary"] {{
+            background: {theme.surface_alt};
+            color: {theme.primary_text};
+            border: 1px solid {theme.border};
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 700;
+        }}
+
+        QPushButton[role="secondary"]:hover {{
+            border-color: {theme.primary_accent};
+        }}
+
+        QProgressBar {{
+            background: {theme.surface_alt};
+            border: 1px solid {theme.border};
+            border-radius: 10px;
+            text-align: center;
+            color: {theme.primary_text};
+            height: 20px;
+        }}
+
+        QProgressBar::chunk {{
+            background: {theme.primary_accent};
+            border-radius: 10px;
         }}
 
         QStatusBar {{
-            background-color: {BACKGROUND};
-            border-top: 1px solid {BORDER};
-            color: {TEXT_MUTED};
-            font-size: 12px;
+            background: {theme.background};
+            border-top: 1px solid {theme.border};
+            color: {theme.secondary_text};
         }}
     """
