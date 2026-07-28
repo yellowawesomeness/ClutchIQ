@@ -49,6 +49,7 @@ class MainWindow(QMainWindow):
         history_service = history_service or DemoHistoryService()
         analysis_engine = analysis_engine or AnalysisEngine()
         self._loaded_match_store = LoadedMatchStore()
+        self._active_match_record: PersistedImportRecord | None = None
 
         central = QWidget(self)
         root = QHBoxLayout(central)
@@ -61,7 +62,7 @@ class MainWindow(QMainWindow):
             Page.IMPORT_DEMO: ImportDemoPage(ingest_service, history_service, analysis_engine, on_import_success=self._cache_loaded_match),
             Page.MATCHES: MatchesPage(history_service=history_service, navigate_to_match_details=self._open_match_details),
             Page.MATCH_DETAILS: MatchDetailsPage(),
-            Page.REPLAY: ReplayPage(),
+            Page.REPLAY: ReplayPage(back_callback=self._back_to_match_details),
             Page.ANALYTICS: AnalyticsPage(),
             Page.SETTINGS: SettingsPage(),
         }
@@ -99,9 +100,41 @@ class MainWindow(QMainWindow):
         self._loaded_match_store.set_rounds(record.id, rounds)
         self.pages[Page.DASHBOARD].refresh()
 
-    def _open_match_details(self, record: PersistedImportRecord) -> None:
+    def _open_match_details(self, record: PersistedImportRecord, selected_round_index: int | None = None) -> None:
+        self._active_match_record = record
         details_page = self.pages[Page.MATCH_DETAILS]
-        details_page.set_record(record, back_callback=lambda: self.set_page(Page.MATCHES), rounds=self._loaded_match_store.get_rounds(record.id))
+        details_page.set_record(
+            record,
+            back_callback=lambda: self.set_page(Page.MATCHES),
+            open_replay_callback=lambda round_: self._open_replay(record, round_),
+            rounds=self._loaded_match_store.get_rounds(record.id),
+            selected_round_index=selected_round_index,
+        )
+        self.set_page(Page.MATCH_DETAILS)
+
+    def _open_replay(self, record: PersistedImportRecord, round_: DemoRound) -> None:
+        details_page = self.pages[Page.MATCH_DETAILS]
+        selected_round_index = details_page.selected_round_index()
+        replay_page = self.pages[Page.REPLAY]
+        replay_page.set_round(
+            record=record,
+            round_=round_,
+            back_callback=lambda: self._back_to_match_details(selected_round_index),
+        )
+        self._active_match_record = record
+        self.set_page(Page.REPLAY)
+
+    def _back_to_match_details(self, selected_round_index: int | None = None) -> None:
+        if self._active_match_record is None:
+            return
+        details_page = self.pages[Page.MATCH_DETAILS]
+        details_page.set_record(
+            self._active_match_record,
+            back_callback=lambda: self.set_page(Page.MATCHES),
+            open_replay_callback=lambda round_: self._open_replay(self._active_match_record, round_),
+            rounds=self._loaded_match_store.get_rounds(self._active_match_record.id),
+            selected_round_index=selected_round_index,
+        )
         self.set_page(Page.MATCH_DETAILS)
 
     def set_page(self, page: Page) -> None:

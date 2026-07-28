@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Callable
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSignalBlocker, Qt
 from PySide6.QtWidgets import QFrame, QLabel, QListWidget, QListWidgetItem, QPushButton, QVBoxLayout, QWidget
 
 from clutchiq.demo_analysis.models import WinningSide
@@ -18,7 +19,8 @@ class MatchDetailsPage(QWidget):
         super().__init__(parent)
         self._record: PersistedImportRecord | None = None
         self._rounds: tuple[DemoRound, ...] = ()
-        self._back_callback: callable | None = None
+        self._back_callback: Callable[[], None] | None = None
+        self._open_replay_callback: Callable[[DemoRound], None] | None = None
         self._selected_round_index: int | None = None
 
         root = QVBoxLayout(self)
@@ -42,19 +44,33 @@ class MatchDetailsPage(QWidget):
         self._rounds_layout.addWidget(QLabel("Round Browser"))
         self._rounds_list = QListWidget()
         self._rounds_list.currentRowChanged.connect(self._on_round_selected)
+        self._rounds_list.itemDoubleClicked.connect(self._on_round_activated)
+        self._rounds_list.itemActivated.connect(self._on_round_activated)
         self._rounds_layout.addWidget(self._rounds_list)
         root.addWidget(self._rounds_card)
         root.addStretch(1)
 
-    def set_record(self, record: PersistedImportRecord, back_callback: callable, rounds: tuple[DemoRound, ...] = ()) -> None:
+    def set_record(
+        self,
+        record: PersistedImportRecord,
+        back_callback: Callable[[], None],
+        open_replay_callback: Callable[[DemoRound], None] | None = None,
+        rounds: tuple[DemoRound, ...] = (),
+        selected_round_index: int | None = None,
+    ) -> None:
         self._record = record
         self._rounds = rounds
         self._back_callback = back_callback
-        self._selected_round_index = None
+        self._open_replay_callback = open_replay_callback
+        self._selected_round_index = selected_round_index
         self._refresh()
+
+    def selected_round_index(self) -> int | None:
+        return self._selected_round_index
 
     def _refresh(self) -> None:
         self._clear_layout(self._card_layout)
+        blocker = QSignalBlocker(self._rounds_list)
         self._rounds_list.clear()
         record = self._record
         if record is None:
@@ -88,8 +104,12 @@ class MatchDetailsPage(QWidget):
         self._rounds_list.setEnabled(True)
         for round_ in self._rounds:
             self._rounds_list.addItem(QListWidgetItem(self._format_round(round_)))
+
+        index = self._selected_round_index if self._selected_round_index is not None else 0
         if self._rounds_list.count():
-            self._rounds_list.setCurrentRow(0)
+            self._rounds_list.setCurrentRow(index)
+            self._selected_round_index = self._rounds_list.currentRow()
+        del blocker
 
     def _on_back(self) -> None:
         if self._back_callback is not None:
@@ -102,6 +122,13 @@ class MatchDetailsPage(QWidget):
             is_selected = index == self._selected_round_index
             item.setSelected(is_selected)
             item.setBackground(Qt.GlobalColor.yellow if is_selected else Qt.GlobalColor.transparent)
+
+    def _on_round_activated(self, item: QListWidgetItem) -> None:
+        if self._open_replay_callback is None:
+            return
+        row = self._rounds_list.row(item)
+        if 0 <= row < len(self._rounds):
+            self._open_replay_callback(self._rounds[row])
 
     def _format_local_time(self, imported_at_utc: str) -> str:
         dt = datetime.fromisoformat(imported_at_utc)

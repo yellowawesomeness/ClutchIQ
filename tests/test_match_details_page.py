@@ -95,7 +95,7 @@ def test_round_browser_highlights_selected_round(qapp: QApplication, tmp_path: P
     assert rounds_list.item(1).isSelected()
 
 
-def test_match_card_opens_details_and_back_navigation(qapp: QApplication, tmp_path: Path) -> None:
+def test_selected_round_opens_replay_at_start_tick(qapp: QApplication, tmp_path: Path) -> None:
     history = DemoHistoryService(tmp_path / "demo_history.json")
     history.record_import(
         DemoImportResult(
@@ -110,13 +110,67 @@ def test_match_card_opens_details_and_back_navigation(qapp: QApplication, tmp_pa
     )
 
     window = MainWindow(DemoIngestService(parser=DummyParser()), history_service=history)
-    window.set_page(Page.MATCHES)
-
-    card = next(button for button in window.pages[Page.MATCHES].findChildren(QPushButton) if "demo1.dem" in button.text())
-    QTest.mouseClick(card, Qt.MouseButton.LeftButton)
+    record = history.load_summary().records[0]
+    window._cache_loaded_match(
+        record,
+        (
+            DemoRound(round_number=2, winner_team="T", start_tick=250, end_tick=400, score_ct=1, score_t=1),
+        ),
+    )
+    window._open_match_details(record)
+    window.show()
+    qapp.processEvents()
 
     details_page = window.pages[Page.MATCH_DETAILS]
-    assert window.stack.currentWidget() is details_page
-    back_button = next(button for button in details_page.findChildren(QPushButton) if button.text() == "Back to Matches")
+    rounds_list = details_page.findChildren(QListWidget)[0]
+    rounds_list.setCurrentRow(0)
+    qapp.processEvents()
+    details_page._on_round_activated(rounds_list.item(0))
+    qapp.processEvents()
+
+    replay_page = window.pages[Page.REPLAY]
+    assert window.stack.currentWidget() is replay_page
+    assert "Start tick: 250" in {label.text() for label in replay_page.findChildren(QLabel)}
+
+
+def test_replay_back_returns_to_match_details_with_same_selection(qapp: QApplication, tmp_path: Path) -> None:
+    history = DemoHistoryService(tmp_path / "demo_history.json")
+    history.record_import(
+        DemoImportResult(
+            id="1",
+            imported_at_utc=datetime(2024, 1, 2, 15, 30, tzinfo=timezone.utc),
+            source_path=Path("demo1.dem"),
+            source_name="demo1.dem",
+            result=ImportResult.SUCCESS,
+            parse_stage=ImportStage.ANALYZE,
+            analysis_summary=AnalysisSummary(30, 16, 14, "CT", 30),
+        )
+    )
+
+    window = MainWindow(DemoIngestService(parser=DummyParser()), history_service=history)
+    record = history.load_summary().records[0]
+    window._cache_loaded_match(
+        record,
+        (
+            DemoRound(round_number=1, winner_team="CT", start_tick=1, end_tick=100, score_ct=1, score_t=0),
+            DemoRound(round_number=2, winner_team="T", start_tick=250, end_tick=400, score_ct=1, score_t=1),
+        ),
+    )
+    window._open_match_details(record)
+    window.show()
+    qapp.processEvents()
+
+    details_page = window.pages[Page.MATCH_DETAILS]
+    rounds_list = details_page.findChildren(QListWidget)[0]
+    rounds_list.setCurrentRow(1)
+    qapp.processEvents()
+    details_page._on_round_activated(rounds_list.item(1))
+    qapp.processEvents()
+
+    back_button = next(button for button in window.pages[Page.REPLAY].findChildren(QPushButton) if button.text() == "Back to Match Details")
     QTest.mouseClick(back_button, Qt.MouseButton.LeftButton)
-    assert window.stack.currentWidget() is window.pages[Page.MATCHES]
+    qapp.processEvents()
+
+    assert window.stack.currentWidget() is details_page
+    assert rounds_list.currentRow() == 1
+    assert rounds_list.item(1).isSelected()
