@@ -1,0 +1,576 @@
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_baggage_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_baggage_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_shoots_night_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_shoots_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\cs_italy_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\cs_office_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_night_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_v1_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_anubis_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_cache_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_cache_radar_tga.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_dust2_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_inferno_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_mirage_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_nuke_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_nuke_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_overpass_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_train_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_train_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_vertigo_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_vertigo_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\workshop_preview_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\workshop_preview_radar_tga.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_baggage_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_baggage_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_shoots_night_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\ar_shoots_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\cs_italy_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\cs_office_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_night_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_ancient_v1_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_anubis_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_cache_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_cache_radar_tga.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_dust2_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_inferno_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_mirage_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_nuke_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_nuke_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_overpass_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_train_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_train_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_vertigo_lower_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\de_vertigo_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\workshop_preview_radar_psd.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+
+---------------
+Parent file: C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\pak01_dir.vpk
+File: panorama\images\overheadmaps\workshop_preview_radar_tga.vtex_c
+Exception: System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Dll was not found.
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at ValveResourceFormat.ResourceTypes.Texture.GenerateBitmap(UInt32 depth, CubemapFace face, UInt32 mipLevel, TextureCodec decodeFlags) in /_/ValveResourceFormat/Resource/ResourceTypes/Texture.cs:line 636
+   at ValveResourceFormat.IO.TextureExtract.ToContentFile() in /_/ValveResourceFormat/IO/TextureExtract.cs:line 147
+   at CLI.Decompiler.DecompileResource(Resource resource, IFileLoader fileLoader) in /_/CLI/Decompiler.cs:line 767
+   at CLI.Decompiler.ProcessVPKEntries(String parentPath, Package package, IFileLoader fileLoader, String type, Dictionary`2 manifestData) in /_/CLI/Decompiler.cs:line 1348
+

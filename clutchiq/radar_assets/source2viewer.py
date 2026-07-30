@@ -1,157 +1,196 @@
 """ValveResourceFormat Source2Viewer acquisition and controlled invocation."""
 from __future__ import annotations
-
+from collections.abc import Callable
 from dataclasses import dataclass
-from pathlib import Path
-import hashlib
-import json
-import os
-import platform
-import subprocess
-import tempfile
-import urllib.request
-import zipfile
+from pathlib import Path, PurePosixPath
+import ctypes, hashlib, json, os, platform, shutil, subprocess, tempfile, urllib.request, zipfile
+class Source2ViewerError(RuntimeError): pass
+UPSTREAM_REPOSITORY="ValveResourceFormat/ValveResourceFormat"; RELEASE_TAG="19.2"; RELEASE_API_URL=f"https://api.github.com/repos/{UPSTREAM_REPOSITORY}/releases/tags/{RELEASE_TAG}"; WINDOWS_X64_ASSET_NAME="cli-windows-x64.zip"; SOURCE2VIEWER_CLI_EXECUTABLE="Source2Viewer-CLI.exe"
+OVERVIEW_VPK_PATH="resource/overviews/"; OVERVIEW_VPK_EXTENSIONS="txt"; OVERHEADMAP_VPK_PATH="panorama/images/overheadmaps/"; OVERHEADMAP_VPK_EXTENSIONS="vtex_c"; TARGETED_EXTRACTION_TARGETS=((OVERVIEW_VPK_PATH,OVERVIEW_VPK_EXTENSIONS),(OVERHEADMAP_VPK_PATH,OVERHEADMAP_VPK_EXTENSIONS)); Report=Callable[[str],None]
+@dataclass(frozen=True,slots=True)
+class ReleaseAsset: name:str; url:str; sha256:str|None
+def managed_bundle_path()->Path: return Path(os.environ.get("LOCALAPPDATA",Path.home()/".cache"))/"ClutchIQ"/"source2viewer"/RELEASE_TAG
+def managed_tool_path()->Path: return managed_bundle_path()/SOURCE2VIEWER_CLI_EXECUTABLE
+def _lock_path(tool:Path)->Path: return tool.parent/"installation.json"
+def _sha256(path:Path)->str:
+ h=hashlib.sha256()
+ with path.open("rb") as f:
+  for b in iter(lambda:f.read(1048576),b""): h.update(b)
+ return h.hexdigest()
+def _published_sha256(a:dict[str,object])->str|None:
+ d=a.get("digest")
+ return d.split(":",1)[1].lower() if isinstance(d,str) and d.startswith("sha256:") and len(d)==71 else None
+def discover_windows_x64_asset()->ReleaseAsset:
+ try:
+  with urllib.request.urlopen(RELEASE_API_URL,timeout=30) as r: p=json.load(r)
+ except (OSError,ValueError) as e: raise Source2ViewerError(f"Could not query the ValveResourceFormat {RELEASE_TAG} release API. Use --source2viewer <path>.") from e
+ assets=p.get("assets") if isinstance(p,dict) and p.get("tag_name")==RELEASE_TAG else None
+ c=[ReleaseAsset(x["name"],x["browser_download_url"],_published_sha256(x)) for x in assets or [] if isinstance(x,dict) and x.get("name")==WINDOWS_X64_ASSET_NAME and isinstance(x.get("browser_download_url"),str)]
+ if len(c)!=1: raise Source2ViewerError(f"Could not identify exactly one Windows x64 Source2Viewer asset named {WINDOWS_X64_ASSET_NAME!r}. Use --source2viewer <path>.")
+ return c[0]
+def _files(tool:Path)->dict[str,str]: return {p.relative_to(tool.parent).as_posix():_sha256(p) for p in tool.parent.rglob("*") if p.is_file() and p.name!="installation.json"}
+def _lock(tool:Path,a:ReleaseAsset,d:str)->None: _lock_path(tool).write_text(json.dumps({"tag":RELEASE_TAG,"asset":a.name,"archive_sha256":d,"files":_files(tool)},sort_keys=True),encoding="utf-8")
+def _valid(tool:Path)->bool:
+ try: p=json.loads(_lock_path(tool).read_text(encoding="utf-8"))
+ except (OSError,ValueError): return False
+ return tool.is_file() and p.get("tag")==RELEASE_TAG and p.get("files")==_files(tool)
+def _runtime(tool:Path)->Path:
+ root=tool.parent; managed=[p for p in root.rglob("SkiaSharp.dll") if p.is_file()]; native=[p for p in root.rglob("libSkiaSharp.dll") if p.is_file() and "runtimes" in {x.lower() for x in p.relative_to(root).parts}]
+ if len(managed)!=1 or len(native)!=1: raise Source2ViewerError(f"Source2Viewer runtime is incomplete beneath {root}: SkiaSharp.dll and runtimes/.../libSkiaSharp.dll are required.")
+ return native[0]
+def _run(command:list[str],*,timeout:int,reporter:Report|None=None)->subprocess.CompletedProcess[str]:
+ if reporter: reporter(f"Source2Viewer command: {subprocess.list2cmdline(command)}")
+ try: return subprocess.run(command,capture_output=True,text=True,timeout=timeout,check=False)
+ except (OSError,subprocess.TimeoutExpired) as e: raise Source2ViewerError(f"Source2Viewer command failed: {e}") from e
+def verify_source2viewer_runtime(tool:Path)->None:
+ if not tool.is_file(): raise Source2ViewerError(f"Source2Viewer executable does not exist: {tool}")
+ native=_runtime(tool)
+ if platform.system()=="Windows":
+  try:
+   with os.add_dll_directory(str(native.parent)): ctypes.WinDLL(str(native))
+  except OSError as e: raise Source2ViewerError(f"Source2Viewer Skia native runtime cannot load ({native.relative_to(tool.parent)}): {e}") from e
+ r=_run([str(tool),"--help"],timeout=15)
+ if r.returncode: raise Source2ViewerError(f"Source2Viewer startup self-check failed (exit {r.returncode}): {(r.stderr or r.stdout).strip()[:2000]}")
+def resolve_source2viewer(explicit:Path|None=None)->Path:
+ if explicit is not None: verify_source2viewer_runtime(Path(explicit)); return Path(explicit)
+ tool=managed_tool_path()
+ if _valid(tool): verify_source2viewer_runtime(tool); return tool
+ return download_source2viewer(tool)
+def _member(m:zipfile.ZipInfo)->PurePosixPath:
+ p=PurePosixPath(m.filename.replace("\\","/"))
+ if p.is_absolute() or not p.parts or any(x in (".","..") for x in p.parts) or ":" in p.parts[0]: raise Source2ViewerError(f"Pinned Source2Viewer archive contains unsafe member: {m.filename!r}")
+ return p
+def _install_download(download:Path,destination:Path)->Path:
+ with zipfile.ZipFile(download) as z:
+  entries=[(m,_member(m)) for m in z.infolist() if not m.is_dir()]
+  if len({p.as_posix().lower() for _,p in entries})!=len(entries): raise Source2ViewerError("Pinned Source2Viewer archive contains case-colliding members.")
+  cli=[p for _,p in entries if p.name.lower()==SOURCE2VIEWER_CLI_EXECUTABLE.lower()]
+  if len(cli)!=1: raise Source2ViewerError(f"Pinned Source2Viewer archive does not contain exactly one {SOURCE2VIEWER_CLI_EXECUTABLE}.")
+  for m,p in entries:
+   out=destination.joinpath(*p.parts); out.parent.mkdir(parents=True,exist_ok=True)
+   with z.open(m) as src,out.open("wb") as dst: shutil.copyfileobj(src,dst)
+ return destination.joinpath(*cli[0].parts)
+def download_source2viewer(destination:Path)->Path:
+ if platform.system()!="Windows": raise Source2ViewerError("Managed ValveResourceFormat Source2Viewer 19.2 is configured for Windows x64 only. Provide --source2viewer <path>.")
+ a=discover_windows_x64_asset(); destination.parent.parent.mkdir(parents=True,exist_ok=True)
+ with tempfile.TemporaryDirectory(prefix="clutchiq-source2viewer-",dir=destination.parent.parent) as d:
+  archive=Path(d)/a.name; bundle=Path(d)/"bundle"; urllib.request.urlretrieve(a.url,archive); digest=_sha256(archive)
+  if a.sha256 and digest!=a.sha256: raise Source2ViewerError("Downloaded Source2Viewer failed the ValveResourceFormat published SHA-256 verification.")
+  candidate=_install_download(archive,bundle); _runtime(candidate); _lock(candidate,a,digest)
+  if destination.parent.exists(): shutil.rmtree(destination.parent)
+  shutil.move(str(bundle),str(destination.parent)); installed=destination.parent/candidate.relative_to(bundle)
+ verify_source2viewer_runtime(installed); return installed
+def build_targeted_list_command(tool:Path,vpk:Path,vpk_path:str=OVERVIEW_VPK_PATH,extensions:str=OVERVIEW_VPK_EXTENSIONS)->list[str]: return [str(tool),"-i",str(vpk),"--vpk_list","--vpk_filepath",vpk_path,"--vpk_extensions",extensions]
+def build_targeted_extract_command(tool:Path,vpk:Path,destination:Path,vpk_path:str=OVERVIEW_VPK_PATH,extensions:str=OVERVIEW_VPK_EXTENSIONS)->list[str]: return [str(tool),"-i",str(vpk),"-o",str(destination),"--vpk_decompile","--vpk_filepath",vpk_path,"--vpk_extensions",extensions,"--threads","1"]
+def parse_targeted_vpk_list(
+    output: str,
+    *,
+    vpk_path: str = OVERVIEW_VPK_PATH,
+    extensions: str = OVERVIEW_VPK_EXTENSIONS,
+) -> tuple[str, ...]:
+    expected_path = vpk_path.replace("\\", "/").lower()
+    expected_extensions = {
+        extension.strip().lower().lstrip(".")
+        for extension in extensions.split(",")
+        if extension.strip()
+    }
+    assets: list[str] = []
 
-
-class Source2ViewerError(RuntimeError):
-    pass
-
-
-# This is deliberately a tag, not a ``latest`` URL.  The resolved asset URL and
-# SHA-256 are recorded beside the managed executable after the first install.
-UPSTREAM_REPOSITORY = "ValveResourceFormat/ValveResourceFormat"
-RELEASE_TAG = "19.2"
-RELEASE_API_URL = f"https://api.github.com/repos/{UPSTREAM_REPOSITORY}/releases/tags/{RELEASE_TAG}"
-
-
-@dataclass(frozen=True, slots=True)
-class ReleaseAsset:
-    name: str
-    url: str
-    sha256: str | None
-
-
-def managed_tool_path() -> Path:
-    root = Path(os.environ.get("LOCALAPPDATA", Path.home() / ".cache")) / "ClutchIQ" / "source2viewer"
-    return root / ("Source2Viewer.exe" if platform.system() == "Windows" else "Source2Viewer")
-
-
-def _lock_path(tool: Path) -> Path:
-    return tool.with_suffix(tool.suffix + ".json")
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _published_sha256(asset: dict[str, object]) -> str | None:
-    digest = asset.get("digest")
-    if isinstance(digest, str) and digest.lower().startswith("sha256:"):
-        value = digest.split(":", 1)[1].lower()
-        if len(value) == 64 and all(character in "0123456789abcdef" for character in value):
-            return value
-    return None
-
-
-def discover_windows_x64_asset() -> ReleaseAsset:
-    """Resolve the immutable Windows x64 CLI asset for the pinned upstream tag."""
-    try:
-        with urllib.request.urlopen(RELEASE_API_URL, timeout=30) as response:
-            payload = json.load(response)
-    except (OSError, ValueError) as error:
-        raise Source2ViewerError(f"Could not query the ValveResourceFormat {RELEASE_TAG} release API. Use --source2viewer <path>.") from error
-    if not isinstance(payload, dict) or payload.get("tag_name") != RELEASE_TAG:
-        raise Source2ViewerError(f"ValveResourceFormat release API did not return the pinned tag {RELEASE_TAG}.")
-    assets = payload.get("assets")
-    if not isinstance(assets, list):
-        raise Source2ViewerError("ValveResourceFormat release has no assets.")
-    candidates: list[ReleaseAsset] = []
-    for raw in assets:
-        if not isinstance(raw, dict):
+    for line in output.splitlines():
+        stripped = line.strip()
+        if not stripped:
             continue
-        name, url = raw.get("name"), raw.get("browser_download_url")
-        normalized = name.lower() if isinstance(name, str) else ""
-        if (isinstance(url, str) and "source2viewer" in normalized and "win" in normalized
-                and ("x64" in normalized or "win64" in normalized) and normalized.endswith((".zip", ".exe"))):
-            candidates.append(ReleaseAsset(name, url, _published_sha256(raw)))
-    if len(candidates) != 1:
-        raise Source2ViewerError("Could not identify exactly one Windows x64 Source2Viewer asset in ValveResourceFormat release 19.2. Use --source2viewer <path>.")
-    return candidates[0]
 
+        if stripped.startswith('"'):
+            asset, separator, _ = stripped[1:].partition('"')
+            if not separator:
+                continue
+        else:
+            asset = stripped.split(maxsplit=1)[0]
 
-def _read_lock(tool: Path) -> dict[str, str] | None:
-    try:
-        value = json.loads(_lock_path(tool).read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return None
-    return value if isinstance(value, dict) and all(isinstance(item, str) for item in value.values()) else None
+        asset = asset.replace("\\", "/")
+        if (
+            asset.lower().startswith(expected_path)
+            and Path(asset).suffix.lower().lstrip(".") in expected_extensions
+        ):
+            assets.append(asset)
 
+    return tuple(assets)
+def extract_targeted(
+    tool: Path,
+    vpk: Path,
+    destination: Path,
+    *,
+    timeout: int = 180,
+    reporter: Report | None = None,
+) -> None:
+    if timeout <= 0:
+        raise ValueError("Extraction timeout must be positive.")
 
-def _write_lock(tool: Path, asset: ReleaseAsset, digest: str) -> None:
-    payload = {"repository": UPSTREAM_REPOSITORY, "tag": RELEASE_TAG, "asset": asset.name, "url": asset.url, "sha256": digest}
-    temporary = _lock_path(tool).with_suffix(".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    temporary.replace(_lock_path(tool))
-
-
-def resolve_source2viewer(explicit: Path | None = None) -> Path:
-    if explicit is not None:
-        path = Path(explicit)
-        if path.is_file():
-            return path
-        raise Source2ViewerError(f"--source2viewer does not exist: {path}")
-    managed = managed_tool_path()
-    lock = _read_lock(managed)
-    if managed.is_file() and lock is not None and lock.get("tag") == RELEASE_TAG and lock.get("sha256") == _sha256(managed):
-        return managed
-    return download_source2viewer(managed)
-
-
-def _install_download(download: Path, destination: Path) -> None:
-    if download.suffix.lower() == ".zip":
-        with zipfile.ZipFile(download) as archive:
-            names = [name for name in archive.namelist() if Path(name).name.lower() == "source2viewer.exe"]
-            if len(names) != 1:
-                raise Source2ViewerError("Pinned Source2Viewer archive does not contain exactly one Source2Viewer.exe.")
-            with archive.open(names[0]) as source, destination.open("wb") as target:
-                target.write(source.read())
-    else:
-        download.replace(destination)
-
-
-def download_source2viewer(destination: Path) -> Path:
-    if platform.system() != "Windows":
-        raise Source2ViewerError("Managed ValveResourceFormat Source2Viewer 19.2 is configured for Windows x64 only. Provide --source2viewer <path>.")
-    asset = discover_windows_x64_asset()
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="clutchiq-source2viewer-", dir=destination.parent) as directory:
-        download = Path(directory) / asset.name
-        candidate = Path(directory) / destination.name
-        try:
-            urllib.request.urlretrieve(asset.url, download)
-            downloaded_digest = _sha256(download)
-            if asset.sha256 is not None and downloaded_digest != asset.sha256:
-                raise Source2ViewerError("Downloaded Source2Viewer failed the ValveResourceFormat published SHA-256 verification.")
-            _install_download(download, candidate)
-        except (OSError, zipfile.BadZipFile) as error:
-            raise Source2ViewerError("Source2Viewer could not be downloaded or unpacked. Use --source2viewer <path>.") from error
-        if not candidate.is_file() or not candidate.stat().st_size:
-            raise Source2ViewerError("Pinned Source2Viewer installation produced no executable.")
-        candidate.replace(destination)
-    _write_lock(destination, asset, downloaded_digest)
-    return destination
-
-
-def extract(tool: Path, vpk: Path, destination: Path) -> None:
-    """Extract a VPK using Source2Viewer's documented export interface."""
     destination.mkdir(parents=True, exist_ok=True)
-    try:
-        result = subprocess.run([str(tool), "-i", str(vpk), "-o", str(destination)], capture_output=True, text=True, timeout=180, check=False)
-    except (OSError, subprocess.TimeoutExpired) as error:
-        raise Source2ViewerError(f"Source2Viewer extraction failed for {vpk}: {error}") from error
-    if result.returncode:
-        raise Source2ViewerError(f"Source2Viewer extraction failed for {vpk}: {result.stderr.strip() or result.stdout.strip()}")
+
+    for vpk_path, extensions in TARGETED_EXTRACTION_TARGETS:
+        result = _run(
+            build_targeted_list_command(tool, vpk, vpk_path, extensions),
+            timeout=timeout,
+            reporter=reporter,
+        )
+
+        if result.returncode != 0:
+            raise Source2ViewerError(
+                f"Source2Viewer targeted listing failed for {vpk}: "
+                f"{(result.stderr or result.stdout).strip()}"
+            )
+
+        if not parse_targeted_vpk_list(
+            result.stdout,
+            vpk_path=vpk_path,
+            extensions=extensions,
+        ):
+            raise Source2ViewerError(
+                f"Source2Viewer targeted listing found no {extensions} assets in "
+                f"{vpk_path} for {vpk}; refusing decompilation."
+            )
+
+    for vpk_path, extensions in TARGETED_EXTRACTION_TARGETS:
+        result = _run(
+            build_targeted_extract_command(
+                tool,
+                vpk,
+                destination,
+                vpk_path,
+                extensions,
+            ),
+            timeout=timeout,
+            reporter=reporter,
+        )
+
+        if result.returncode != 0:
+            raise Source2ViewerError(
+                f"Source2Viewer targeted extraction failed for {vpk}: "
+                f"{(result.stderr or result.stdout).strip()}"
+            )
+
+
+def extract(
+    tool: Path,
+    vpk: Path,
+    destination: Path,
+    *,
+    timeout: int = 180,
+) -> None:
+    if timeout <= 0:
+        raise ValueError("Extraction timeout must be positive.")
+
+    destination.mkdir(parents=True, exist_ok=True)
+
+    result = _run(
+        [str(tool), "-i", str(vpk), "-o", str(destination)],
+        timeout=timeout,
+    )
+
+    if result.returncode != 0:
+        raise Source2ViewerError(
+            f"Source2Viewer extraction failed for {vpk}: "
+            f"{(result.stderr or result.stdout).strip()}"
+        )
