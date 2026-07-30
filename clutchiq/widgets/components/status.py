@@ -26,3 +26,6 @@ class StatusBanner(AppCard):
 
     def set_text(self, text: str) -> None:
         self._label.setText(text)
+
+    def show_message(self, text: str) -> None:
+        self.set_text(text)

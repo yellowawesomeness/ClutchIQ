@@ -1,0 +1,11 @@
+{
+  "de_dust2": {
+    "asset_name": "de_dust2.svg",
+    "min_x": -2200.0,
+    "max_x": 1700.0,
+    "min_y": -3500.0,
+    "max_y": 2000.0,
+    "invert_y": true,
+    "asset_svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'><rect width='1000' height='1000' fill='#d8c79f'/><path d='M80 120h260v130h150V90h210v180h210v160H730v150h160v250H630V690H470v180H220V700H90V470h190V350H80z' fill='#b5a77f' stroke='#635c4a' stroke-width='24'/><path d='M120 500h760M500 130v720' stroke='#8c8062' stroke-width='34'/><circle cx='260' cy='290' r='82' fill='#b87652'/><circle cx='730' cy='690' r='82' fill='#b87652'/><text x='230' y='305' font-size='70' fill='white'>A</text><text x='700' y='705' font-size='70' fill='white'>B</text></svg>"
+  }
+}

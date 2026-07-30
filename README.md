@@ -16,7 +16,7 @@ Create and activate a virtual environment, install the dependency, and launch th
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-python main.py
+clutchiq demos/MATCH20260725-1.dem
 ```
 
 ### macOS / Linux
@@ -25,12 +25,12 @@ python main.py
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python main.py
+clutchiq demos/MATCH20260725-1.dem
 ```
 
 ## Roadmap
 
-The immediate priority is analysis fixture cleanup. Replay UI implementation is not yet in scope.
+The immediate priority is analysis fixture cleanup.
 
 ### Timeline & Replay Compatibility
 

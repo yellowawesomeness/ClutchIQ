@@ -6,28 +6,22 @@ build-backend = "setuptools.build_meta"
 name = "code-workspace"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = [
-    "pyside6>=6.7,<7",
-    "demoparser2>=0.0.0",
-]
+dependencies = ["pyside6>=6.7,<7", "demoparser2>=0.0.0"]
 
 [project.scripts]
 clutchiq = "clutchiq.cli:main"
 
 [tool.pytest.ini_options]
-markers = [
-    "integration: tests that require the real demo file and demoparser2",
-]
+markers = ["integration: tests that require the real demo file and demoparser2"]
 
 [tool.setuptools]
 include-package-data = true
 
+[tool.setuptools.package-data]
+clutchiq = ["assets/radar/*.json", "assets/radar/*.svg", "assets/radar/*.png"]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["clutchiq*"]
-exclude = [
-    "tests*",
-    "attachments*",
-    "demos*",
-]
+exclude = ["tests*", "attachments*", "demos*"]
 namespaces = false

@@ -7,6 +7,7 @@ import pytest
 from PySide6.QtWidgets import QApplication
 
 from clutchiq.demo_analysis.analyzer import AnalysisEngine
+from clutchiq.demo_ingest.models import Cs2Demo, DemoHeader
 from clutchiq.history.models import AnalysisSummary, DemoImportResult, ImportResult, ImportStage
 from clutchiq.widgets.pages.import_demo import DemoImportFailure, DemoImportOutcome, DemoImportWorker, ImportDemoController
 
@@ -31,6 +32,11 @@ class DummyIngestService:
         if self.should_fail:
             raise RuntimeError("read failed")
         return DummyDemo()
+
+
+class Cs2DemoIngestService:
+    def ingest_path(self, path: Path) -> Cs2Demo:  # noqa: ARG002
+        return Cs2Demo(header=DemoHeader())
 
 
 class DummyAnalysisEngine:
@@ -92,6 +98,26 @@ def test_worker_emits_typed_success_outcome(qapp: QApplication) -> None:
     assert payloads[0].result.parse_stage == ImportStage.ANALYZE
     assert payloads[0].result.imported_at_utc.tzinfo is not None
     assert payloads[0].rounds == ()
+
+
+def test_worker_emits_failure_when_timeline_conversion_raises(qapp: QApplication, monkeypatch: pytest.MonkeyPatch) -> None:
+    def fail_timeline_conversion(demo: Cs2Demo) -> object:  # noqa: ARG001
+        raise AttributeError("timeline source object does not expose a tick field")
+
+    monkeypatch.setattr("clutchiq.widgets.pages.import_demo.cs2demo_to_timeline_import", fail_timeline_conversion)
+    worker = DemoImportWorker(Cs2DemoIngestService(), DummyAnalysisEngine(), Path("C:/demos/test.dem"))
+    finished: list[object] = []
+    failures: list[object] = []
+    worker.signals.finished.connect(finished.append)
+    worker.signals.failed.connect(failures.append)
+
+    worker.run()
+
+    assert finished == []
+    assert len(failures) == 1
+    assert isinstance(failures[0], DemoImportFailure)
+    assert failures[0].stage == ImportStage.ANALYZE
+    assert failures[0].error_type == "AttributeError"
 
 
 def test_controller_records_success_and_calls_view_once(qapp: QApplication) -> None:

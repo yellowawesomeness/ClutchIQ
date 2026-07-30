@@ -56,3 +56,52 @@ class TimelineImport:
     participants: tuple[Participant, ...] = ()
     events: tuple[TimelineEvent, ...] = ()
     raw: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
+class TradeDetectionConfig:
+    """Rules used to identify a retaliation trade."""
+
+    window_ticks: int = 128
+
+    def __post_init__(self) -> None:
+        if isinstance(self.window_ticks, bool) or not isinstance(self.window_ticks, int) or self.window_ticks < 0:
+            raise ValueError("window_ticks must be a non-negative integer")
+
+
+@dataclass(frozen=True, slots=True)
+class Trade:
+    """Two one-to-one matched kill events comprising a trade."""
+
+    death_event_id: str
+    retaliation_event_id: str
+    round_number: int
+    original_killer_player_id: int
+    original_victim_player_id: int
+    death_tick: Tick
+    retaliation_tick: Tick
+
+
+@dataclass(frozen=True, slots=True)
+class ClutchDetectionConfig:
+    """Rules used to identify a clutch entry."""
+
+    minimum_opponents: int = 1
+
+    def __post_init__(self) -> None:
+        if isinstance(self.minimum_opponents, bool) or not isinstance(self.minimum_opponents, int) or self.minimum_opponents < 1:
+            raise ValueError("minimum_opponents must be a positive integer")
+
+
+@dataclass(frozen=True, slots=True)
+class Clutch:
+    """A successful transition to one surviving player followed by a round win."""
+
+    round_number: int
+    survivor_player_id: int
+    survivor_team: int
+    opponents_at_start: int
+    start_event_id: str
+    start_tick: Tick
+    outcome_event_id: str
+    outcome_tick: Tick

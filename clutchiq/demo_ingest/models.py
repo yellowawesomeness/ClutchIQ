@@ -62,6 +62,16 @@ class DemoPlayer:
 
 
 @dataclass(frozen=True, slots=True)
+class DemoPlayerRoundTeam:
+    """Parser-sourced player team membership for one recorded round."""
+
+    player_id: int
+    round_number: int
+    team_num: int
+    raw: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
 class DemoRound:
     round_number: int
     winner_team: str | None = None
@@ -97,6 +107,7 @@ class Cs2Demo:
     header: DemoHeader
     rounds: tuple[DemoRound, ...] = ()
     players: tuple[DemoPlayer, ...] = ()
+    player_round_teams: tuple[DemoPlayerRoundTeam, ...] = ()
     kills: tuple[DemoKill, ...] = ()
     events: tuple[DemoEvent, ...] = ()
     raw: dict[str, Any] = field(default_factory=dict)

@@ -26,6 +26,7 @@ class AnalysisSummary:
     t_rounds: int
     winning_side: str
     rounds_with_known_winner: int
+    map_name: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
