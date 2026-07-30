@@ -10,6 +10,7 @@ dependencies = ["pyside6>=6.7,<7", "demoparser2>=0.0.0"]
 
 [project.scripts]
 clutchiq = "clutchiq.cli:main"
+clutchiq-radar-assets = "clutchiq.radar_assets.cli:main"
 
 [tool.pytest.ini_options]
 markers = ["integration: tests that require the real demo file and demoparser2"]
